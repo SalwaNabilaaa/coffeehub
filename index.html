@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoffeeHub - Menu Kedai Kopi Aceh</title>
+  <style>
+    :root {
+      --bg: #FFF7FA;
+      --bg-gradient: radial-gradient(circle at top, #FFFFFF 0%, #FFEBF2 100%);
+      --card: #FFFFFF;
+      --text: #3B1E2A;
+      --muted: #825A6A;
+      --accent: #D46A92;
+      --accent-dark: #9E3F63;
+      --accent-soft: #FCE4EE;
+      --line: #F5D5E2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 14px 56px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    /* Hero Header */
+    .hero {
+      background: linear-gradient(145deg, #E88DB0 0%, #C85A84 100%);
+      color: #FFFFFF;
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(212, 106, 146, 0.22);
+      margin-bottom: 16px;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.28) 0%, transparent 70%);
+      top: -60px;
+      right: -50px;
+      pointer-events: none;
+    }
+
+    .logo {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.24);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      box-shadow: 0 6px 16px rgba(158, 63, 99, 0.18);
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      color: #FFF5F8;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 4px;
+    }
+
+    .sub {
+      font-size: 13.5px;
+      color: #FFF0F6;
+    }
+
+    /* Info Banner */
+    .info {
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(212, 106, 146, 0.06);
+    }
+
+    /* Sticky Search & Filter */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 247, 250, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 10px 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 11px 14px 11px 38px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #FFFFFF;
+      font-size: 13.5px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(212, 106, 146, 0.16);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: #FFFFFF;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 999px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: #FFFFFF;
+      border-color: var(--accent);
+      box-shadow: 0 4px 10px rgba(212, 106, 146, 0.28);
+    }
+
+    /* Section Header */
+    .section {
+      margin-top: 20px;
+    }
+
+    .cat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+
+    .cat-title {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--accent-dark);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-count {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    /* Menu Cards */
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+      box-shadow: 0 3px 10px rgba(212, 106, 146, 0.06);
+    }
+
+    .item:hover, .item:active {
+      transform: translateY(-1px);
+      border-color: #E8A6C0;
+      box-shadow: 0 6px 16px rgba(212, 106, 146, 0.12);
+    }
+
+    .thumb-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      object-fit: cover;
+      background-color: var(--accent-soft);
+      border: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+
+    .modal-img {
+      width: 100%;
+      max-height: 190px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      background-color: var(--accent-soft);
+      border: 1px solid var(--line);
+    }
+
+    .item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .price {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      white-space: nowrap;
+    }
+
+    .desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.4;
+      margin-bottom: 6px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .tag-best {
+      background: #FFE4EE;
+      color: #B83B6A;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 36px 16px;
+      color: var(--muted);
+      font-size: 14px;
+      display: none;
+    }
+
+    /* Modal Detail */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(59, 30, 42, 0.45);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px;
+      padding: 22px 20px;
+      box-shadow: 0 20px 40px rgba(59, 30, 42, 0.25);
+      animation: slideUp 0.22s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(24px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .modal-close {
+      background: var(--accent-soft);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      color: var(--accent-dark);
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .modal-price {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--accent-dark);
+      margin-bottom: 10px;
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .modal-note {
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 12.5px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="logo">☕</div>
+      <div class="kicker">Kedai Kopi · Aceh</div>
+      <h1>CoffeeHub</h1>
+      <p class="sub">Pilihan kopi dan hidangan hari ini</p>
+    </header>
+
+    <!-- Info Box -->
+    <div class="info">
+      <span>ℹ️</span>
+      <span>Halaman ini hanya untuk melihat menu. Untuk memesan dan membayar, silakan hubungi staf di kasir.</span>
+    </div>
+
+    <!-- Sticky Search & Filter -->
+    <div class="sticky-nav">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Cari kopi, squash, tea, atau rasa..." />
+      </div>
+      <div class="tabs" id="categoryTabs">
+        <button class="tab active" data-cat="ALL">Semua</button>
+        <button class="tab" data-cat="BERRY">🫐 Berry</button>
+        <button class="tab" data-cat="KOPI">☕ Kopi</button>
+        <button class="tab" data-cat="LAINNYA">🥤 Lainnya</button>
+        <button class="tab" data-cat="MENU UTAMA">⭐ Menu Utama</button>
+        <button class="tab" data-cat="SPESIAL">✨ Spesial</button>
+        <button class="tab" data-cat="SQUASH">🫧 Squash</button>
+        <button class="tab" data-cat="TEA">🍵 Tea</button>
+      </div>
+    </div>
+
+    <!-- Container Menu -->
+    <div id="menuContainer"></div>
+    <div class="empty-state" id="emptyState">Menu tidak ditemukan. Coba kata kunci lain ya!</div>
+
+    <footer>
+      Harga dan ketersediaan dapat berubah. Pemesanan dilakukan melalui staf di kasir.
+    </footer>
+  </div>
+
+  <!-- Modal Detail -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="cat-count" id="modalCat">KATEGORI</span>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+      <img src="" alt="" class="modal-img" id="modalImg" />
+      <div class="modal-title" id="modalTitle">Nama Menu</div>
+      <div class="modal-price" id="modalPrice">Rp...</div>
+      <p class="modal-desc" id="modalDesc">Deskripsi menu</p>
+      <div class="tags" id="modalTags" style="margin-bottom: 14px;"></div>
+      <div class="modal-note">💡 Sebutkan nama menu ini ke staf kasir untuk memesan.</div>
+    </div>
+  </div>
+
+  <script>
+    const FALLBACK_IMG = "https://placehold.co/200x200/FCE4EE/9E3F63?text=CoffeeHub";
+
+    // Ganti link di properti `img` sesuai foto menu kamu
+    const MENU_DATA = [
+      // BERRY
+      { cat: "BERRY", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Espresso+Berry", name: "Espresso Berry", price: "Rp...", desc: "Espresso & sirup beri. Segar, manis-asam, ringan.", best: false },
+      { cat: "BERRY", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Taro+Berry", name: "Taro Berry", price: "Rp...", desc: "Susu taro & saus beri. Creamy, manis lembut, segar.", best: false },
+
+      // KOPI
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Cino+Latte", name: "Cino Latte", price: "Rp...", desc: "Espresso & susu berbusa lembut. Rasa kopi pas, tidak terlalu pahit.", best: true },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Lemon+Madu", name: "Coffee Lemon Madu", price: "Rp...", desc: "Kopi hitam, perasan lemon & madu murni. Segar, asam-manis alami.", best: false },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Caramel", name: "Kopi Caramel", price: "Rp...", desc: "Espresso, susu & sirup karamel. Manis gurih, aroma karamel harum.", best: false },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Gula+Aren", name: "Kopi Gula Aren", price: "Rp...", desc: "Espresso, susu & gula aren asli. Manis legit, body kopi terasa.", best: true },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Kopi+Latte", name: "Kopi Latte", price: "Rp...", desc: "Espresso & susu steamed. Halus, milky, rasa kopi ringan.", best: false },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Kopi+Pandan", name: "Kopi Pandan", price: "Rp...", desc: "Kopi susu & ekstrak pandan. Creamy, manis pas, wangi pandan khas.", best: false },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Kopi+Vanilla", name: "Kopi Vanilla", price: "Rp...", desc: "Kopi susu & sirup vanila. Lembut, manis ringan, aroma vanila.", best: false },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Sanger+Ice", name: "Sanger Espresso Dingin", price: "Rp...", desc: "Kopi Aceh & kental manis dingin. Pekat, creamy, khas Aceh.", best: true },
+      { cat: "KOPI", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Sanger+Hot", name: "Sanger Espresso Panas", price: "Rp...", desc: "Kopi Aceh & kental manis hangat. Harum, pekat, manis seimbang.", best: false },
+
+      // LAINNYA
+      { cat: "LAINNYA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Butterscotch", name: "Butterscotch", price: "Rp...", desc: "Susu & saus butterscotch. Manis gurih, creamy, aroma karamel mentega.", best: false },
+      { cat: "LAINNYA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Green+Day", name: "Green Day", price: "Rp...", desc: "Racikan sirup hijau & soda/susu ringan. Manis segar, tampilan cerah.", best: false },
+      { cat: "LAINNYA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Pink+Panther", name: "Pink Panther", price: "Rp...", desc: "Susu & sirup stroberi/frambozen. Manis lembut, warna merah muda.", best: false },
+      { cat: "LAINNYA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Susu+Regal", name: "Susu Regal", price: "Rp...", desc: "Susu segar, gula aren/vanila & biskuit Regal. Creamy, manis gurih.", best: true },
+
+      // MENU UTAMA
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Avocado+Coffee", name: "Avocado Coffee", price: "Rp...", desc: "Jus alpukat kental & shot espresso. Pekat, creamy, manis-pahit pas.", best: true },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Cappuccino", name: "Cappuccino", price: "Rp...", desc: "Espresso, susu & foam tebal. Rasa kopi kuat dengan busa lembut.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Cokelat", name: "Cokelat", price: "Rp...", desc: "Cokelat bubuk premium & susu. Pekat, manis pas, tidak enek.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Blueberry", name: "Deep Blueberry", price: "Rp...", desc: "Susu & selai/sirup blueberry. Manis-asam buah beri, creamy.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Strawberry", name: "Deep Strawberry", price: "Rp...", desc: "Susu & selai/sirup stroberi. Manis segar dengan rasa buah pekat.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Matcha", name: "Matcha", price: "Rp...", desc: "Bubuk green tea Jepang & susu. Creamy, wangi teh hijau, manis ringan.", best: true },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Oreo", name: "Oreo", price: "Rp...", desc: "Susu creamy & remahan biskuit Oreo. Manis, renyah, favorit segala usia.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Purple+Blue", name: "Purple Blue", price: "Rp...", desc: "Perpaduan sirup beri & jeruk/soda. Manis-asam segar, gradasi ungu-biru.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Red+Velvet", name: "Red Velvet", price: "Rp...", desc: "Bubuk red velvet & susu. Manis lembut dengan sentuhan cokelat-keju.", best: false },
+      { cat: "MENU UTAMA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Taro", name: "Taro", price: "Rp...", desc: "Bubuk talas ungu & susu. Creamy, manis lembut, wangi khas taro.", best: false },
+
+      // SPESIAL
+      { cat: "SPESIAL", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Brown+Sugar", name: "Brown Sugar", price: "Rp...", desc: "Susu segar & sirup brown sugar karamel. Manis legit, aroma gula bakar.", best: false },
+      { cat: "SPESIAL", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Golden+Buzz", name: "Golden Buzz", price: "Rp...", desc: "Racikan kopi/teh, jeruk & madu. Segar, asam-manis, penambah energi.", best: false },
+      { cat: "SPESIAL", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Red+Candy", name: "Red Candy", price: "Rp...", desc: "Sirup buah merah & susu/soda ringan. Manis segar ala permen buah.", best: false },
+      { cat: "SPESIAL", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Sunset+Latte", name: "Sunset Latte", price: "Rp...", desc: "Espresso, susu & sirup jeruk/beri. Segar unik dengan gradasi warna senja.", best: true },
+
+      // SQUASH
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Blue+Squash", name: "Blue Squash", price: "Rp...", desc: "Sirup blue citrus, perasan jeruk & soda. Dingin, bersoda, segar.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Lemon+Squash", name: "Lemon Squash", price: "Rp...", desc: "Perasan lemon asli, gula & soda dingin. Asam-manis, super menyegarkan.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Lychee+Squash", name: "Lychee Squash", price: "Rp...", desc: "Sirup & buah leci dengan soda dingin. Manis harum, segar ringan.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Mango+Dream", name: "Mango Dream", price: "Rp...", desc: "Sari mangga manis & susu/soda ringan. Segar tropis, lembut di tenggorokan.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Mango+Squash", name: "Mango Squash", price: "Rp...", desc: "Sirup mangga harum & soda dingin. Manis segar dengan sensasi soda.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Orange+Squash", name: "Orange Squash", price: "Rp...", desc: "Sari jeruk segar & soda dingin. Asam-manis seimbang, pelepas dahaga.", best: false },
+      { cat: "SQUASH", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Strawberry+Squash", name: "Strawberry Squash", price: "Rp...", desc: "Sirup stroberi & soda dingin. Manis-asam segar, aroma stroberi kuat.", best: false },
+
+      // TEA
+      { cat: "TEA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Apple+Tea", name: "Apple Tea", price: "Rp...", desc: "Teh seduh & sari apel. Manis segar dengan aroma apel yang ringan.", best: false },
+      { cat: "TEA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Honey+Ice+Tea", name: "Honey Ice Tea", price: "Rp...", desc: "Teh hitam dingin & madu murni. Manis alami, lembut, tidak bikin serik.", best: false },
+      { cat: "TEA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Lemon+Tea", name: "Lemon Tea", price: "Rp...", desc: "Teh seduh & perasan lemon segar. Asam-manis ringan, menyegarkan.", best: false },
+      { cat: "TEA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Lychee+Tea", name: "Lychee Tea", price: "Rp...", desc: "Teh seduh, sirup & buah leci. Manis harum, segar, favorit non-kopi.", best: true },
+      { cat: "TEA", img: "https://placehold.co/200x200/FCE4EE/9E3F63?text=Peach+Tea", name: "Peach Tea", price: "Rp...", desc: "Teh seduh & sari buah persik. Manis lembut, wangi buah peach.", best: false }
+    ];
+
+    const CATEGORIES = ["BERRY", "KOPI", "LAINNYA", "MENU UTAMA", "SPESIAL", "SQUASH", "TEA"];
+    let activeCat = "ALL";
+    let searchQuery = "";
+
+    const container = document.getElementById("menuContainer");
+    const emptyState = document.getElementById("emptyState");
+
+    function renderTags(item) {
+      if (!item.best) return "";
+      return `<span class="tag tag-best">★ Favorit</span>`;
+    }
+
+    function renderMenu() {
+      container.innerHTML = "";
+      let totalShown = 0;
+
+      CATEGORIES.forEach(cat => {
+        if (activeCat !== "ALL" && activeCat !== cat) return;
+
+        const items = MENU_DATA.filter(item => {
+          const matchCat = item.cat === cat;
+          const q = searchQuery.toLowerCase();
+          const matchSearch = item.name.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+          return matchCat && matchSearch;
+        });
+
+        if (items.length === 0) return;
+        totalShown += items.length;
+
+        const section = document.createElement("div");
+        section.className = "section";
+        section.innerHTML = `
+          <div class="cat-header">
+            <div class="cat-title">${cat}</div>
+            <span class="cat-count">${items.length} menu</span>
+          </div>
+          <div class="list"></div>
+        `;
+
+        const listEl = section.querySelector(".list");
+        items.forEach(item => {
+          const card = document.createElement("div");
+          card.className = "item";
+          card.innerHTML = `
+            <img src="${item.img || FALLBACK_IMG}" alt="${item.name}" class="thumb-img" onerror="this.onerror=null;this.src='${FALLBACK_IMG}';" />
+            <div class="item-body">
+              <div class="item-top">
+                <span class="name">${item.name}</span>
+                <span class="price">${item.price}</span>
+              </div>
+              <p class="desc">${item.desc}</p>
+              <div class="tags">${renderTags(item)}</div>
+            </div>
+          `;
+          card.addEventListener("click", () => openModal(item));
+          listEl.appendChild(card);
+        });
+
+        container.appendChild(section);
+      });
+
+      emptyState.style.display = totalShown === 0 ? "block" : "none";
+    }
+
+    // Tabs Event
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCat = btn.dataset.cat;
+        renderMenu();
+      });
+    });
+
+    // Search Event
+    document.getElementById("searchInput").addEventListener("input", e => {
+      searchQuery = e.target.value.trim();
+      renderMenu();
+    });
+
+    // Modal Logic
+    const backdrop = document.getElementById("modalBackdrop");
+    const modalImg = document.getElementById("modalImg");
+    modalImg.onerror = function () {
+      this.onerror = null;
+      this.src = FALLBACK_IMG;
+    };
+
+    function openModal(item) {
+      document.getElementById("modalCat").textContent = item.cat;
+      modalImg.src = item.img || FALLBACK_IMG;
+      modalImg.alt = item.name;
+      document.getElementById("modalTitle").textContent = item.name;
+      document.getElementById("modalPrice").textContent = item.price;
+      document.getElementById("modalDesc").textContent = item.desc;
+      document.getElementById("modalTags").innerHTML = renderTags(item);
+      backdrop.classList.add("open");
+    }
+
+    document.getElementById("modalClose").addEventListener("click", () => backdrop.classList.remove("open"));
+    backdrop.addEventListener("click", e => {
+      if (e.target === backdrop) backdrop.classList.remove("open");
+    });
+
+    renderMenu();
+  </script>
+</body>
+</html>
